@@ -3,7 +3,7 @@ argo-cd:
     # -- Enable dex
     enabled: false
 
-  fullnameOverride: argocd
+  fullnameOverride: argo-cd
 
   apiVersionOverrides:
     ingress: networking.k8s.io/v1
