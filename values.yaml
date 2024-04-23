@@ -1,0 +1,186 @@
+argo-cd:
+  dex:
+    # -- Enable dex
+    enabled: false
+
+  fullnameOverride: argocd
+
+  apiVersionOverrides:
+    ingress: networking.k8s.io/v1
+
+  configs:
+    secret:
+      createSecret: true
+      extra:
+        {
+          # TODO
+          # argo 1회 생성후, 서버에서 Token 발행 필요
+          #accounts.jenkins.tokens: '[{"id":"f95b8e16-5c94-4d29-9fb6-df1ff2add0d7","iat":1671006611}]',
+        }
+
+  repoServer:
+    resources:
+      requests:
+        cpu: 0.5
+        memory: 700Mi
+    autoscaling:
+      # -- Enable Horizontal Pod Autoscaler ([HPA]) for the repo server
+      enabled: true
+      # -- Minimum number of replicas for the repo server [HPA]
+      minReplicas: 1
+      # -- Maximum number of replicas for the repo server [HPA]
+      maxReplicas: 5
+      # -- Average CPU utilization percentage for the repo server [HPA]
+      targetCPUUtilizationPercentage: 50
+      # -- Average memory utilization percentage for the repo server [HPA]
+      targetMemoryUtilizationPercentage: 50
+      # -- Configures the scaling behavior of the target in both Up and Down directions.
+      # This is only available on HPA apiVersion `autoscaling/v2beta2` and newer
+      behavior:
+        {}
+        # scaleDown:
+        #  stabilizationWindowSeconds: 300
+        #  policies:
+        #   - type: Pods
+        #     value: 1
+        #     periodSeconds: 180
+        # scaleUp:
+        #   stabilizationWindowSeconds: 300
+        #   policies:
+        #   - type: Pods
+        #     value: 2
+        #     periodSeconds: 60
+
+  controller:
+    resources:
+      requests:
+        cpu: 1 
+        memory: 1700Mi
+    serviceAccount:
+      # -- Create a service account for the application controller
+      create: true
+      # -- Service account name
+      name: argocd21-application-controller
+      # -- Annotations applied to created service account
+      # annotations:
+      #   {
+      #     # TODO
+      #     # AICC Role 확인 필요
+      #     eks.amazonaws.com/role-arn: arn:aws:iam::992382711213:role/eks-aicc-argo,
+      #   }
+      # # -- Automount API credentials for the Service Account
+      # automountServiceAccountToken: false
+
+  server:
+    extraArgs:
+      - "--insecure"
+      - "--port"
+      - "7080"
+    resources:
+      requests:
+        cpu: 0.5
+        memory: 700Mi
+    serviceAccount:
+      # -- Create server service account
+      create: true
+      # -- Server service account name
+      name: argocd21-server
+      # -- Annotations applied to created service account
+      # annotations:
+      #   {
+      #     # TODO
+      #     # AICC Role 확인 필요
+      #     eks.amazonaws.com/role-arn: arn:aws:iam::992382711213:role/eks-aicc-argo,
+      #   }
+      # # -- Automount API credentials for the Service Account
+      # automountServiceAccountToken: true
+    autoscaling:
+      enabled: true
+      # -- Minimum number of replicas for the Argo CD server [HPA]
+      minReplicas: 1
+      # -- Maximum number of replicas for the Argo CD server [HPA]
+      maxReplicas: 5
+      # -- Average CPU utilization percentage for the Argo CD server [HPA]
+      targetCPUUtilizationPercentage: 50
+      # -- Average memory utilization percentage for the Argo CD server [HPA]
+      targetMemoryUtilizationPercentage: 50
+    containerPort: 7080
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: alb
+    #   hosts:
+    #     - eksaicc.koreanair.com
+    #   extraPaths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: argocd-server
+    #           port:
+    #             number: 80
+    #   annotations:
+    #   # TODO
+    #   # 1. ALB name
+    #   # 2. ALB Tag
+    #   # 3. subnet
+    #   # 4. SG
+    #     alb.ingress.kubernetes.io/load-balancer-name: awsdc-alb-com-shr-aicc-eks
+    #     alb.ingress.kubernetes.io/group.name: awsdc-alb-com-shr-aicc-eks
+    #     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+    #     alb.ingress.kubernetes.io/target-type: ip
+    #     alb.ingress.kubernetes.io/ssl-redirect: "443"
+    #     alb.ingress.kubernetes.io/security-groups: sg-06c328ff59992cf44, sg-0f77821c4f6638b87, sg-0fc4424b6900ec102
+    #     alb.ingress.kubernetes.io/tags: Department=KEXWT, Owner=COM, Billing=KEKAL, Stage=SHR, IaC=Helm, ResourceType=ALB, Severity=S3, Shared=N, Application=COM.ALM-EKS, CreateDate=20220603, Name=awsdc-alb-com-shr-alm-eks
+    #     alb.ingress.kubernetes.io/subnets: subnet-009b760ac175dc526, subnet-03064eeab3c6e8b02
+    rbacConfig:
+      policy.csv: |
+        p, role:none, *, *, */*, deny
+        p, role:readonly, logs, get, */*, allow
+        p, role:admin, *, *, */*, allow
+        p, role:admin, logs, get, */*, allow
+
+        g, jenkins, role:admin
+        g, argocd-administrators, role:admin
+      policy.default: role:readonly
+      scopes: "[email,groups]"
+    config:
+      accounts.jenkins: apiKey
+      admin.enabled: "false"
+      # TODO
+      # 도메인 이름 수정
+      url: https://rudgh21.com
+      # dex.config: |
+      #   logger:
+      #     level: debug
+      #     format: json
+      #   connectors:
+      #   - type: atlassian-crowd
+      #     # Required field for connector id.
+      #     id: crowd
+      #     # Required field for connector name.
+      #     name: Crowd
+      #     config:
+      #       # Required field to connect to Crowd.
+      #       baseURL: https://itro.koreanair.com/crowd
+      #       # Credentials can be string literals or pulled from the environment.
+      #       # TODO
+      #       # Generate New Appication(Crowd)
+      #       clientID: argocdaicc
+      #       clientSecret: argocdaicc
+      #       # Optional groups whitelist, communicated through the "groups" scope.
+      #       # If `groups` is omitted, all of the user's Crowd groups are returned when the groups scope is present.
+      #       # If `groups` is provided, this acts as a whitelist - only the user's Crowd groups that are in the configured `groups` below will go into the groups claim.
+      #       # Conversely, if the user is not in any of the configured `groups`, the user will not be authenticated.
+      #       # TODO
+      #       # 권한 범위 확인 필요
+      #       groups:
+      #       - alm-users
+      #       - prj-users
+      #       - argocd-administrators
+      #       # Prompt for username field.
+      #       usernamePrompt: Login
+      #       # Optionally set preferred_username claim.
+      #       # If `preferredUsernameField` is omitted or contains an invalid option, the `preferred_username` claim will be empty.
+      #       # If `preferredUsernameField` is set, the `preferred_username` claim will be set to the chosen Crowd user attribute value.
+      #       # Possible choices are: "key", "name", "email"
+      #       preferredUsernameField: name
