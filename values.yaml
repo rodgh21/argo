@@ -1,4 +1,4 @@
-rgo-cd:
+argo-cd:
   dex:
     # -- Enable dex
     enabled: false
