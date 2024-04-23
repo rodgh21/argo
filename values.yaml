@@ -60,7 +60,7 @@ argo-cd:
       # -- Create a service account for the application controller
       create: true
       # -- Service account name
-      name: argocd21-application-controller
+      name: argocd-application-controller
       # -- Annotations applied to created service account
       # annotations:
       #   {
@@ -84,7 +84,7 @@ argo-cd:
       # -- Create server service account
       create: true
       # -- Server service account name
-      name: argocd21-server
+      name: argocd-server
       # -- Annotations applied to created service account
       # annotations:
       #   {
