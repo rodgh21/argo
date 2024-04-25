@@ -3,7 +3,7 @@ argo-cd:
     # -- Enable dex
     enabled: false
 
-  fullnameOverride: argo-rudgh21
+  fullnameOverride: argocd
 
   apiVersionOverrides:
     ingress: networking.k8s.io/v1
@@ -60,7 +60,7 @@ argo-cd:
       # -- Create a service account for the application controller
       create: true
       # -- Service account name
-      name: argocd21-application-controller
+      name: argocd-application-controller
       # -- Annotations applied to created service account
       # annotations:
       #   {
@@ -84,7 +84,7 @@ argo-cd:
       # -- Create server service account
       create: true
       # -- Server service account name
-      name: argocd21-server
+      name: argocd-server
       # -- Annotations applied to created service account
       # annotations:
       #   {
@@ -93,7 +93,7 @@ argo-cd:
       #     eks.amazonaws.com/role-arn: arn:aws:iam::992382711213:role/eks-aicc-argo,
       #   }
       # # -- Automount API credentials for the Service Account
-      # automountServiceAccountToken: true
+      automountServiceAccountToken: true
     autoscaling:
       enabled: true
       # -- Minimum number of replicas for the Argo CD server [HPA]
@@ -104,7 +104,9 @@ argo-cd:
       targetCPUUtilizationPercentage: 50
       # -- Average memory utilization percentage for the Argo CD server [HPA]
       targetMemoryUtilizationPercentage: 50
-    containerPort: 7080
+    containerPorts: 
+      server: 7080
+      metrics: 7083
     # ingress:
     #   enabled: true
     #   ingressClassName: alb
