@@ -21,8 +21,8 @@ argo-cd:
   repoServer:
     resources:
       requests:
-        cpu: 0.5
-        memory: 700Mi
+        cpu: 500m
+        memory: 450Mi
     autoscaling:
       # -- Enable Horizontal Pod Autoscaler ([HPA]) for the repo server
       enabled: true
@@ -54,8 +54,8 @@ argo-cd:
   controller:
     resources:
       requests:
-        cpu: 0.5
-        memory: 700Mi
+        cpu: 500m
+        memory: 450Mi
     serviceAccount:
       # -- Create a service account for the application controller
       create: true
@@ -78,8 +78,8 @@ argo-cd:
       - "7080"
     resources:
       requests:
-        cpu: 0.5
-        memory: 700Mi
+        cpu: 500m
+        memory: 450Mi
     serviceAccount:
       # -- Create server service account
       create: true
