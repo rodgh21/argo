@@ -64,7 +64,7 @@ argo-cd:
       policy.default: role:readonly
       scopes: "[email,groups]"
     params:
-      server.insecure: false
+      server.insecure: true
     secret:
       createSecret: true
       extra:
