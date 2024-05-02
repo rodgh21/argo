@@ -1,4 +1,6 @@
 argo-cd:
+  global:
+    domain: https://rudgh21.com
   dex:
     # -- Enable dex
     enabled: false
@@ -11,10 +13,9 @@ argo-cd:
   configs:
     cm:
       accounts.jenkins: apiKey
+      accounts.nlee: login
+      accounts.rudgh21: login, apiKey
       admin.enabled: "false"
-      # TODO
-      # 도메인 이름 수정
-      url: https://rudgh21.com
       # dex.config: |
       #   logger:
       #     level: debug
@@ -58,18 +59,24 @@ argo-cd:
             p, role:admin, logs, get, */*, allow
             g, jenkins, role:admin
             g, argocd-administrators, role:admin
+            g, nlee, role:admin
+            g, rudgh21, role:admin
       policy.default: role:readonly
       scopes: "[email,groups]"
     params:
-      server.insecure: true
+      server.insecure: false
     secret:
       createSecret: true
       extra:
         {
           # TODO
           # argo 1회 생성후, 서버에서 Token 발행 필요
-          #accounts.jenkins.tokens: '[{"id":"f95b8e16-5c94-4d29-9fb6-df1ff2add0d7","iat":1671006611}]',
+          accounts.jenkins.tokens: '[{"id":"0688fc45-de10-4d78-8558-8e75cf67edea","iat":1714622812000}]',
+          accounts.nlee.password: "$2a$10$Jq0GQqG9p01z9ZekO4b4RuDh18/Aj8SC4NoH7DsY2scXHGS.xWTr6",
+          accounts.rudgh21.password: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
         }
+      argocdServerAdminPassword: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
+      argocdServerAdminPasswordMtime: "'$(date +%FT%T%Z)'"
 
   repoServer:
     resources:
@@ -107,8 +114,8 @@ argo-cd:
   controller:
     resources:
       requests:
-        cpu: 1
-        memory: 1000Mi
+        cpu: 500m
+        memory: 450Mi
     serviceAccount:
       # -- Create a service account for the application controller
       create: true
