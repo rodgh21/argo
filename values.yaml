@@ -14,7 +14,7 @@ argo-cd:
       admin.enabled: "false"
       # TODO
       # 도메인 이름 수정
-      url: https://eksaicc.koreanair.com
+      url: https://rudgh21.com
       # dex.config: |
       #   logger:
       #     level: debug
