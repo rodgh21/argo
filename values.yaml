@@ -107,8 +107,8 @@ argo-cd:
   controller:
     resources:
       requests:
-        cpu: 500m
-        memory: 450Mi
+        cpu: 1
+        memory: 1000Mi
     serviceAccount:
       # -- Create a service account for the application controller
       create: true
