@@ -133,8 +133,7 @@ argo-cd:
     ingress:
       enabled: true
       ingressClassName: traefik
-      hosts:
-        - rudgh21.com
+      hostname: rudgh21.com
       extraPaths:
         - path: /
           pathType: Prefix
