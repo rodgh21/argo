@@ -16,41 +16,6 @@ argo-cd:
       accounts.nlee: login
       accounts.rudgh21: login, apiKey
       admin.enabled: "false"
-      # dex.config: |
-      #   logger:
-      #     level: debug
-      #     format: json
-      #   connectors:
-      #   - type: atlassian-crowd
-      #     # Required field for connector id.
-      #     id: crowd
-      #     # Required field for connector name.
-      #     name: Crowd
-      #     config:
-      #       # Required field to connect to Crowd.
-      #       baseURL: https://itro.koreanair.com/crowd
-      #       # Credentials can be string literals or pulled from the environment.
-      #       # TODO
-      #       # Generate New Appication(Crowd)
-      #       clientID: argocdaicc
-      #       clientSecret: argocdaicc
-      #       # Optional groups whitelist, communicated through the "groups" scope.
-      #       # If `groups` is omitted, all of the user's Crowd groups are returned when the groups scope is present.
-      #       # If `groups` is provided, this acts as a whitelist - only the user's Crowd groups that are in the configured `groups` below will go into the groups claim.
-      #       # Conversely, if the user is not in any of the configured `groups`, the user will not be authenticated.
-      #       # TODO
-      #       # 권한 범위 확인 필요
-      #       groups:
-      #       - alm-users
-      #       - prj-users
-      #       - argocd-administrators
-      #       # Prompt for username field.
-      #       usernamePrompt: Login
-      #       # Optionally set preferred_username claim.
-      #       # If `preferredUsernameField` is omitted or contains an invalid option, the `preferred_username` claim will be empty.
-      #       # If `preferredUsernameField` is set, the `preferred_username` claim will be set to the chosen Crowd user attribute value.
-      #       # Possible choices are: "key", "name", "email"
-      #       preferredUsernameField: name
     rbac:
       policy.csv: |
             p, role:none, *, *, */*, deny
@@ -167,30 +132,3 @@ argo-cd:
     containerPorts: 
       server: 7080
       metrics: 7083
-    # ingress:
-    #   enabled: true
-    #   ingressClassName: alb
-    #   hosts:
-    #     - eksaicc.koreanair.com
-    #   extraPaths:
-    #     - path: /
-    #       pathType: Prefix
-    #       backend:
-    #         service:
-    #           name: argocd-server
-    #           port:
-    #             number: 80
-    #   annotations:
-    #   # TODO
-    #   # 1. ALB name
-    #   # 2. ALB Tag
-    #   # 3. subnet
-    #   # 4. SG
-    #     alb.ingress.kubernetes.io/load-balancer-name: awsdc-alb-com-shr-aicc-eks
-    #     alb.ingress.kubernetes.io/group.name: awsdc-alb-com-shr-aicc-eks
-    #     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
-    #     alb.ingress.kubernetes.io/target-type: ip
-    #     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    #     alb.ingress.kubernetes.io/security-groups: sg-06c328ff59992cf44, sg-0f77821c4f6638b87, sg-0fc4424b6900ec102
-    #     alb.ingress.kubernetes.io/tags: Department=KEXWT, Owner=COM, Billing=KEKAL, Stage=SHR, IaC=Helm, ResourceType=ALB, Severity=S3, Shared=N, Application=COM.ALM-EKS, CreateDate=20220603, Name=awsdc-alb-com-shr-alm-eks
-    #     alb.ingress.kubernetes.io/subnets: subnet-009b760ac175dc526, subnet-03064eeab3c6e8b02
