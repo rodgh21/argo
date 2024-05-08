@@ -16,12 +16,10 @@ argo-cd:
       url: https://rudgh21.com
     rbac:
       policy.csv: |
-            p, role:none, *, *, */*, deny
             p, role:readonly, logs, get, */*, allow
             p, role:admin, *, *, */*, allow
             p, role:admin, logs, get, */*, allow
             g, jenkins, role:admin
-            g, argocd-administrators, role:admin
             g, nlee, role:admin
             g, rudgh21, role:admin
       policy.default: role:readonly
