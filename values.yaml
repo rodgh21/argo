@@ -1,21 +1,19 @@
 argo-cd:
-  global:
-    domain: https://rudgh21.com
   dex:
     # -- Enable dex
     enabled: false
-
   fullnameOverride: argocd
-
   apiVersionOverrides:
     ingress: networking.k8s.io/v1
-
+  global:
+    domain: ""
   configs:
     cm:
       accounts.jenkins: apiKey
       accounts.nlee: login
       accounts.rudgh21: login, apiKey
       admin.enabled: "false"
+      url: https://rudgh21.com
     rbac:
       policy.csv: |
             p, role:none, *, *, */*, deny
