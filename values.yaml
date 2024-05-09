@@ -140,6 +140,3 @@ argo-cd:
               name: argocd-server
               port:
                 number: 80
-      annotations:
-        traefik.ingress.kubernetes.io/force-ssl-redirect: "false"
-        traefik.ingress.kubernetes.io/ssl-redirect: "false"
