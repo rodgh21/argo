@@ -13,7 +13,7 @@ argo-cd:
       accounts.nlee: login
       accounts.rudgh21: login, apiKey
       admin.enabled: "false"
-      url: https://rudgh21.com
+      url: http://rudgh21.com
     rbac:
       policy.csv: |
             p, role:readonly, logs, get, */*, allow
