@@ -128,15 +128,15 @@ argo-cd:
     containerPorts: 
       server: 7080
       metrics: 7083
-    ingress:
-      enabled: true
-      ingressClassName: traefik
-      hostname: rudgh21.com
-      extraPaths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: argocd-server
-              port:
-                number: 80
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: traefik
+    #   hostname: rudgh21.com
+    #   extraPaths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: argocd-server
+    #           port:
+    #             number: 80
