@@ -33,7 +33,7 @@ argo-cd:
           # TODO
           # argo 1회 생성후, 서버에서 Token 발행 필요
           accounts.jenkins.tokens: '[{"id":"0688fc45-de10-4d78-8558-8e75cf67edea","iat":1714622812000}]',
-          accounts.nlee.password: "$2a$10$Jq0GQqG9p01z9ZekO4b4RuDh18/Aj8SC4NoH7DsY2scXHGS.xWTr6",
+          accounts.nlee.password: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa",
           accounts.rudgh21.password: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
         }
       argocdServerAdminPassword: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
