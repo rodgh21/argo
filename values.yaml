@@ -38,6 +38,15 @@ argo-cd:
         }
       argocdServerAdminPassword: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
       argocdServerAdminPasswordMtime: "'$(date +%FT%T%Z)'"
+    repositories:
+      null:
+        url: https://github.com/rodgh21/argo-deploy.git
+        type: git
+      null:
+        url: https://github.com/rodgh21/AzureTest_JAVA.git
+        type: git
+
+
 
   repoServer:
     resources:
