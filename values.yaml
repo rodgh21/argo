@@ -45,6 +45,16 @@ argo-cd:
       deploy:
         url: https://github.com/rodgh21/argo-deploy.git
         project: shr
+      argo:
+        url: https://github.com/rodgh21/argo.git
+        project: shr
+      appset:
+        url: https://github.com/rodgh21/applicationset.git
+        project: shr
+      argorollout:
+        url: https://github.com/rodgh21/argorollout.git
+        project: shr
+
       
 
 
