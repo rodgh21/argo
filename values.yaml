@@ -12,7 +12,7 @@ argo-cd:
       accounts.jenkins: apiKey
       accounts.nlee: login
       accounts.rudgh21: login, apiKey
-      admin.enabled: "false"
+      admin.enabled: "true"
       url: http://rudgh21.com
     rbac:
       policy.csv: |
@@ -38,27 +38,22 @@ argo-cd:
         }
       argocdServerAdminPassword: "$2a$10$rRyBsGSHK6.uc8fntPwVIuLVHgsAhAX7TcdrqW/RADU0uh7CaChLa"
       argocdServerAdminPasswordMtime: "'$(date +%FT%T%Z)'"
-    # repositories:
-    #   azure:
-    #     url: https://github.com/rodgh21/AzureTest_JAVA.git
-    #     project: shr
-    #   deploy:
-    #     url: https://github.com/rodgh21/argo-deploy.git
-    #     project: shr
-    #   argo:
-    #     url: https://github.com/rodgh21/argo.git
-    #     project: shr
-    #   appset:
-    #     url: https://github.com/rodgh21/applicationset.git
-    #     project: shr
-    #   argorollout:
-    #     url: https://github.com/rodgh21/argorollout.git
-    #     project: shr
-
-      
-
-
-
+    repositories:
+      azure:
+        url: https://github.com/rodgh21/AzureTest_JAVA.git
+        project: shr
+      deploy:
+        url: https://github.com/rodgh21/argo-deploy.git
+        project: shr
+      argo:
+        url: https://github.com/rodgh21/argo.git
+        project: shr
+      appset:
+        url: https://github.com/rodgh21/applicationset.git
+        project: shr
+      argorollout:
+        url: https://github.com/rodgh21/argorollout.git
+        project: shr
   repoServer:
     resources:
       requests:
