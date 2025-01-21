@@ -144,7 +144,7 @@ argo-cd:
       server: 7080
       metrics: 7083
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: traefik
       hostname: rudgh21.com
       extraPaths:
