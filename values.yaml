@@ -25,7 +25,12 @@ argo-cd:
       policy.default: role:readonly
       scopes: "[email,groups]"
     params:
+      ## NOTE: This value should be set when you generate params by other means as it changes ports used by ingress template.
       server.insecure: true
+      # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
+      server.basehref: /argocd
+      # -- Used if Argo CD is running behind reverse proxy under subpath different from /
+      server.rootpath: 'argocd'
     secret:
       createSecret: true
       extra:
@@ -143,15 +148,40 @@ argo-cd:
     containerPorts: 
       server: 7080
       metrics: 7083
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: traefik
+    #   hostname: rudgh21.com
+    #   extraPaths:
+    #     - path: /argo
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: argocd-server
+    #           port:
+    #             number: 80
+    
+    # Argo CD server ingress configuration
     ingress:
-      enabled: false
-      ingressClassName: traefik
+      # -- Enable an ingress resource for the Argo CD server
+      enabled: true
+      # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
+      ## Additional configuration might be required in related configuration sections
+      controller: generic
+      # -- Defines which ingress controller will implement the resource
+      ingressClassName: "traefik"
+
+      # -- Argo CD server hostname
+      # @default -- `""` (defaults to global.domain)
       hostname: rudgh21.com
-      extraPaths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: argocd-server
-              port:
-                number: 80
+
+      # -- The path to Argo CD server
+      path: /argocd
+
+      # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+      pathType: Prefix
+
+      # -- Enable TLS configuration for the hostname defined at `server.ingress.hostname`
+      ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
+      ## You can create this secret via `certificate` or `certificateSecret` option
+      tls: false
