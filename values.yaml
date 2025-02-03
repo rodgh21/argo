@@ -13,7 +13,7 @@ argo-cd:
       accounts.nlee: login
       accounts.rudgh21: login, apiKey
       admin.enabled: "true"
-      url: http://rudgh21.com
+      url: http://rudgh21.com/argocd
     rbac:
       policy.csv: |
             p, role:readonly, logs, get, */*, allow
@@ -114,6 +114,8 @@ argo-cd:
 
   server:
     extraArgs:
+      - --rootpath
+      - /argocd
       - "--insecure"
       - "--port"
       - "7080"
@@ -180,7 +182,6 @@ argo-cd:
 
       # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
       pathType: Prefix
-
       # -- Enable TLS configuration for the hostname defined at `server.ingress.hostname`
       ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
       ## You can create this secret via `certificate` or `certificateSecret` option
