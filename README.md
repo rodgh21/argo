@@ -1,6 +1,3 @@
-!!value.yaml 수정 필요!!
-확인 리스트는 # TODO 주석확인
-
-# TODO
-# 1. argo 버전- 최신으로
-# 2. dex 사용 여부- 계정 관리 관련
+# 2025.02.26
+- Chart 7.7.23 > 7.8.0 Upgrade
+- argo-cd 2.13.1 > 2.14.1 Upgrade
