@@ -116,7 +116,7 @@ argo-cd:
     extraArgs:
       - --rootpath
       - /argocd
-      - "--insecure"
+      - "--insecure"  
       - "--port"
       - "7080"
     resources:
@@ -186,3 +186,7 @@ argo-cd:
       ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
       ## You can create this secret via `certificate` or `certificateSecret` option
       tls: false
+      # annotations:
+      #   nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+      #   nginx.ingress.kubernetes.io/ssl-redirect: "false"
+      #   nginx.ingress.kubernetes.io/configuration-snippet: "rewrite ^(/argocd)$ $1/ redirect;"
