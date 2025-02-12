@@ -31,6 +31,7 @@ argo-cd:
       server.basehref: /
       # -- Used if Argo CD is running behind reverse proxy under subpath different from /
       server.rootpath: /argocd
+      hydrator.enabled: "false"
     secret:
       createSecret: true
       extra:
